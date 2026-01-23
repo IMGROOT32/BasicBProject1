@@ -1,4 +1,4 @@
-
+﻿
 #pragma once
 #include <iostream>
 #include <string> 
@@ -9,16 +9,19 @@ class ACharacter
 {
 public:
     ACharacter();
+    ACharacter(string NewName, int NewHp, int NewAtk, int NewDef, float NewCritical);
     ~ACharacter();
+
+    void Attack(ACharacter *Target);
+    void TakeDamage(float DamageAmout);
+
+    int GetHp();
+    bool IsDead();
 
 protected:
       string Name;
-      int HP;
+      int Hp;
       int Atk;
-
-public:
-    void Attack();
-    void TakeDamage(int DamageAmout);
-    
-
+      int Def;
+      float Critical;
 };
