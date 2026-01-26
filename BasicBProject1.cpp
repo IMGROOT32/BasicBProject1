@@ -6,33 +6,46 @@ using namespace std;
 
 int main()
 {
-    ACharacter* Player = new ACharacter("나의 용사", 200, 15,10,0.1f);
-    ACharacter* Monster = new ACharacter("무서운 오크", 100, 10,5,0.1f);
 
-    cout << "===  데스매치 시작!  ===" << endl;
-    Sleep(1000);
-   
-    while (!Player->IsDead() && !Monster->IsDead())
-    {
-        Player->Attack(Monster);
-        if (Monster->IsDead())
-        {
-            cout << "몬스터가 쓰러졌습니다! 승리!" << endl;
-            break;
-        }
+	FUnitStat PlayerStat;
+	PlayerStat.Hp = 200;
+	PlayerStat.Atk = 30;
+	PlayerStat.Def = 10;
+	PlayerStat.Critical = 0.1f;
 
-        Sleep(500);
-        Monster->Attack(Player);
-        if (Player->IsDead())
-        {
-            cout << "플레이어가 쓰러졌습니다... 패배..." << endl;
-            break;
-        }
+	FUnitStat MonsterStat;
+	MonsterStat.Hp = 100;
+	MonsterStat.Atk = 20;
+	MonsterStat.Def = 15;
+	MonsterStat.Critical = 0.1f;
 
-        Sleep(1000);
-    }
-    
-    delete Player;
-    delete Monster;
-    return 0;
+	ACharacter* Player = new ACharacter("나의 용사", PlayerStat);
+	ACharacter* Monster = new ACharacter("무서운 오크", MonsterStat);
+
+	cout << "===  데스매치 시작!  ===" << endl;
+	Sleep(1000);
+
+	while (!Player->IsDead() && !Monster->IsDead())
+	{
+		Player->Attack(Monster);
+		if (Monster->IsDead())
+		{
+			cout << "몬스터가 쓰러졌습니다! 승리!" << endl;
+			break;
+		}
+
+		Sleep(500);
+		Monster->Attack(Player);
+		if (Player->IsDead())
+		{
+			cout << "플레이어가 쓰러졌습니다... 패배..." << endl;
+			break;
+		}
+
+		Sleep(1000);
+	}
+
+	delete Player;
+	delete Monster;
+	return 0;
 }
