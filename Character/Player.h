@@ -5,18 +5,23 @@
 
 using namespace std;
 
-class Player : public ACharacter
+class APlayer : public ACharacter
 {
 	
 public:
-	Player(const string& NewName, const FUnitStat& NewStat, int NewLevel, int NewExp);
+	APlayer(const string& NewName, const FUnitStat& NewStat);
 
-	void GetItem() {}
-	void GetLeveUp() {}
+	void UseItem() {}
+	void LevelUp() {}
+	
+	//Get 접두사 - 게터
+	//Set 접두사 - 세터
+	
+	//플레이어는 레벨과 EXP를 받아올 필요가 없음.
+	// Level 1부터, Exp = 0
 
 private :
-	int level;
-	int exp;
-
+	int Level;
+	int Exp;
 };
 

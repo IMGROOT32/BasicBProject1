@@ -5,10 +5,10 @@
 
 using namespace std;
 
-class Monster : public ACharacter
+class AMonster : public ACharacter
 {
 public :
-	Monster(const string& NewName, const FUnitStat& NewStat);
+	AMonster(const string& NewName, const FUnitStat& NewStat);
 
 	void DropItem() {}
 

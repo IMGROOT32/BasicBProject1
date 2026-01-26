@@ -1,8 +1,8 @@
 ﻿#include "Player.h"
 
-Player::Player(const string& NewName, const FUnitStat& NewStat, int NewLevel, int NewExp) 
-	: ACharacter(NewName, NewStat, NewLevel, NewExp)
+APlayer::APlayer(const string& NewName, const FUnitStat& NewStat) 
+	: ACharacter(NewName, NewStat)
 {
-
+	Level = 1;
+	Exp = 0;
 }
-

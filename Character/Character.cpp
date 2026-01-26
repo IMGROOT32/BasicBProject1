@@ -26,7 +26,7 @@ void ACharacter::Attack(ACharacter* target)
 
 	float DamageAmount = Stat.Atk;
 	int r = rand() % 100;
-	if (r < 10)
+	if (r < Stat.Critical)
 	{
 		DamageAmount *= 1.5f;
 	}
