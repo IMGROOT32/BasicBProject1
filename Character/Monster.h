@@ -7,7 +7,12 @@ using namespace std;
 
 class Monster : public ACharacter
 {
-	//생성자...!
-	
+public :
+	Monster(const string& NewName, const FUnitStat& NewStat);
+
+	void DropItem() {}
+
+private :
+
 };
 
