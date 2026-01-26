@@ -7,6 +7,7 @@ using namespace std;
 
 class Monster : public ACharacter
 {
-
+	//생성자...!
+	
 };
 

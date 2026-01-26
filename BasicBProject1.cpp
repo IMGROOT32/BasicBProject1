@@ -19,6 +19,8 @@ int main()
 	MonsterStat.Def = 15;
 	MonsterStat.Critical = 0.1f;
 
+	// ACharacter 생성 대신 APlayer, AMonster로 생성
+	// 대산 포인터는 ACharacter*로 그대로 유지한다.
 	ACharacter* Player = new ACharacter("나의 용사", PlayerStat);
 	ACharacter* Monster = new ACharacter("무서운 오크", MonsterStat);
 
