@@ -17,9 +17,9 @@ ACharacter::~ACharacter()
 	cout << "ACharacter 이 소멸되었습니다." << endl;
 }
 
-void ACharacter::Attack(ACharacter* target)
+void ACharacter::Attack(ACharacter* Target)
 {
-	if (target == nullptr)
+	if (Target == nullptr)
 	{
 		return;
 	}
@@ -31,7 +31,7 @@ void ACharacter::Attack(ACharacter* target)
 		DamageAmount *= 1.5f;
 	}
 	
-	target->TakeDamage(static_cast<int>(DamageAmount));
+	Target->TakeDamage(static_cast<int>(DamageAmount));
 	cout << Name << "가 공격합니다! (공격력 : " << Stat.Atk << ")" << endl;
 }
 

@@ -19,12 +19,13 @@ public:
 	ACharacter(const string& NewName, const FUnitStat& NewStat);
 	virtual ~ACharacter();
 	
+	void Attack(ACharacter* Target);
+	void TakeDamage(int DamageAmount);
+	bool IsDead() { return Stat.Hp <= 0; }
+
 protected:
 	string Name;
 	FUnitStat Stat;
 	
-public:
-	void Attack(ACharacter* Target);
-	void TakeDamage(int DamageAmount);
-	bool IsDead() { return Stat.Hp <= 0; }
+
 };
