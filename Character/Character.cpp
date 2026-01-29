@@ -4,10 +4,13 @@
 #include <random>
 
 
-ACharacter::ACharacter(const string& NewName, const FUnitStat& NewStat)
+ACharacter::ACharacter(const string& NewName, const FUnitStat& UnitStat)
 {
 	Name = NewName;
-	Stat = NewStat;
+	Stat = UnitStat;
+
+	Stat.Hp = Stat.MaxHp;
+	Stat.Mp = Stat.MaxMp;
 
 	cout << "[생성] " << Name << "가 전장에 나타났습니다! (HP: " << Stat.Hp << ")" << endl;
 }

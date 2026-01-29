@@ -17,5 +17,6 @@ FDamageResult AMonster::Attack(ACharacter* Target)
 		}
 		cout << "푹! " << Name << AttackMessage << "데미지 : " << result.Damage << endl;
 		cout << Target->GetName() << "남은 HP : " << Target->GetHp() << endl;
+
 		return result;
 }
