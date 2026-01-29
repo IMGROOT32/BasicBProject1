@@ -1,15 +1,16 @@
 ﻿#include "Monster.h"
 
-AMonster::AMonster(const string& NewName, const FUnitStat& NewStat) 
+AMonster::AMonster(const string& NewName, const FUnitStat& NewStat)
 	: ACharacter(NewName, NewStat)
 {
-	
+
 
 };
 
 void AMonster::Attack(ACharacter* Target)
 {
-	cout << "크아앙!" << Name << "이(가) 이빨로 물어뜯습니다!" << endl;
+	cout << "와다다다 " << Name << "이(가) 달려와 몸통박치기를 합니다." << endl;
 
-	Target->TakeDamage(Stat.Atk);
+	ACharacter::Attack(Target);
+
 }

@@ -32,7 +32,6 @@ void ACharacter::Attack(ACharacter* Target)
 	}
 	
 	Target->TakeDamage(static_cast<int>(DamageAmount));
-	cout << Name << "가 공격합니다! (공격력 : " << Stat.Atk << ")" << endl;
 }
 
 void ACharacter::TakeDamage(int DamageAmount)
