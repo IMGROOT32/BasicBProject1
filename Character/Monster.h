@@ -11,7 +11,7 @@ public :
 	AMonster(const string& NewName, const FUnitStat& NewStat);
 
 	void DropItem() {}
-
+	void Attack(ACharacter* Target) override;
 private :
 
 };
