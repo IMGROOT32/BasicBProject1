@@ -13,7 +13,7 @@ public:
 
 	void UseItem() {}
 	void LevelUp() {}
-	void Attack(ACharacter* Target) override;
+	FDamageResult Attack(ACharacter* Target) override;
 
 	//Get 접두사 - 게터
 	//Set 접두사 - 세터

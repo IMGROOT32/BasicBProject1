@@ -16,25 +16,31 @@ ACharacter::~ACharacter()
 {
 	cout << "ACharacter 이 소멸되었습니다." << endl;
 }
-
-void ACharacter::Attack(ACharacter* Target)
+int GetRandomInt()
 {
-	if (Target == nullptr)
-	{
-		return;
-	}
-
-	float DamageAmount = Stat.Atk;
-	int r = rand() % 100;
-	if (r < Stat.Critical)
-	{
-		DamageAmount *= 1.5f;
-	}
-	
-	Target->TakeDamage(static_cast<int>(DamageAmount));
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> dis(0, 100);
+	return dis(gen);
 }
 
-void ACharacter::TakeDamage(int DamageAmount)
+FDamageResult ACharacter::Attack(ACharacter* Target)
+{
+	int Damage = Stat.Atk;
+	bool bCritical = GetRandomInt() < Stat.Critical;
+	if (bCritical)
+	{
+		Damage = static_cast<int>(Damage * 1.5f);
+	}
+
+	int FinalDamage = Target->TakeDamage(Damage);
+	FDamageResult result;
+	result.Damage = FinalDamage;
+	result.bCritical = bCritical;
+	return result;
+}
+
+int ACharacter::TakeDamage(int DamageAmount)
 {
 	DamageAmount -= Stat.Def;
 	
@@ -44,7 +50,6 @@ void ACharacter::TakeDamage(int DamageAmount)
 	
 	Stat.Hp -= DamageAmount;
 	Stat.Hp = std::max(Stat.Hp, 0);
-	
-	cout << Name << "가 " << DamageAmount << "의 피해를 입었습니다." << endl;
-	cout << "   -> 남은 체력: " << Stat.Hp << endl;
+
+	return DamageAmount;
 }

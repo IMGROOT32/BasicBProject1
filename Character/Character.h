@@ -13,16 +13,23 @@ struct FUnitStat
 	int Critical;
 };
 
+struct FDamageResult
+{
+	int Damage;
+	bool bCritical ;
+};
+
 class ACharacter
 {
 public:
 	ACharacter(const string& NewName, const FUnitStat& NewStat);
 	virtual ~ACharacter();
 	
-	virtual void Attack(ACharacter* Target);
-	void TakeDamage(int DamageAmount);
+	virtual FDamageResult Attack(ACharacter* Target);
+	int TakeDamage(int DamageAmount);
 	bool IsDead() { return Stat.Hp <= 0; }
-
+	string GetName() { return Name; }
+	int GetHp() { return Stat.Hp; }
 protected:
 	string Name;
 	FUnitStat Stat;
