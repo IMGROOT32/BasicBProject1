@@ -7,19 +7,20 @@ using namespace std;
 
 class APlayer : public ACharacter
 {
-	
+
 public:
 	APlayer(const string& NewName, const FUnitStat& NewStat);
 
 	void UseItem() {}
 	void LevelUp() {}
 	FDamageResult Attack(ACharacter* Target) override;
+	void UseSkill(ACharacter* Target) override;
 
 	//Get 접두사 - 게터
 	//Set 접두사 - 세터
-	
 
-private :
+
+private:
 	int Level;
 	int Exp;
 };

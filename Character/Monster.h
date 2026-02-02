@@ -12,6 +12,7 @@ public :
 
 	void DropItem() {}
 	FDamageResult Attack(ACharacter* Target) override;
+	void UseSkill(ACharacter* Target) override;
 private :
 
 };

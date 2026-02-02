@@ -33,10 +33,17 @@ struct FUnitStat
 	}
 };
 
+class ACharacter;
+
 struct FDamageResult
 {
 	int Damage;
-	bool bCritical ;
+	bool bCritical;
+	
+	ACharacter* Attacker;
+	ACharacter* Target;
+
+	void PrintMessage(const string& AttackMessage);
 };
 
 class ACharacter
@@ -45,11 +52,16 @@ public:
 	ACharacter(const string& NewName, const FUnitStat& NewStat);
 	virtual ~ACharacter();
 	
+	void PrintName();
+	int GetMaxHp() const { return Stat.MaxHp; }
+
 	virtual FDamageResult Attack(ACharacter* Target);
+	virtual void UseSkill(ACharacter* Target) = 0;
 	int TakeDamage(int DamageAmount);
 	bool IsDead() { return Stat.Hp <= 0; }
 	string GetName() { return Name; }
 	int GetHp() { return Stat.Hp; }
+	void Heal(int amount);
 protected:
 	string Name;
 	FUnitStat Stat;
