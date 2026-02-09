@@ -62,6 +62,8 @@ public:
 	string GetName() { return Name; }
 	int GetHp() { return Stat.Hp; }
 	void Heal(int amount);
+	void PlayTurn(ACharacter* Target);
+
 protected:
 	string Name;
 	FUnitStat Stat;

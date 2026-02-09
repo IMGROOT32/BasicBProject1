@@ -65,11 +65,11 @@ void ACharacter::PrintName()
 int ACharacter::TakeDamage(int DamageAmount)
 {
 	DamageAmount -= Stat.Def;
-	
+
 	// DamageAmount 보다 방어력이 높을때, 피가 회복이 되는걸 막기 위함.
 	// DamageAmount는 최소 0이상이어야 함. 
 	DamageAmount = std::max(DamageAmount, 0);
-	
+
 	Stat.Hp -= DamageAmount;
 	Stat.Hp = std::max(Stat.Hp, 0);
 
@@ -86,4 +86,23 @@ void ACharacter::Heal(int amount)
 
 	PrintName();
 	cout << ActualHeal << " HP를 회복했습니다...!" << endl;
+}
+
+void ACharacter::PlayTurn(ACharacter* Target)
+{
+	const int AttackRate = rand() % 100;
+	const int SkillMp = 10;
+	if (AttackRate < 70)
+	{
+		Attack(Target);
+		return;
+	}
+	if (Stat.Mp < SkillMp)
+	{
+		Attack(Target);
+		cout << "마나가 부족합니다" << endl;
+		return;
+	}
+	UseSkill(Target);
+	Stat.Mp -= SkillMp;
 }

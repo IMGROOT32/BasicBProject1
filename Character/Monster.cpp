@@ -28,14 +28,8 @@ void AMonster::UseSkill(ACharacter* Target)
 	result.Attacker = this;
 	result.Target = Target;
 	result.bCritical = false;
-
-	if (Stat.Mp < 10)
-	{
-		return;
-	}
 	
 	int FinalDamage = Target->TakeDamage(Stat.Atk);
-	Stat.Mp -= 10;
 	Heal(FinalDamage);
 
 	result.Damage = FinalDamage;
