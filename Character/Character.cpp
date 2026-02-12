@@ -106,3 +106,12 @@ void ACharacter::PlayTurn(ACharacter* Target)
 	UseSkill(Target);
 	Stat.Mp -= SkillMp;
 }
+
+void ACharacter::ShowStat()
+{
+	cout << Name 
+		<< " HP : " << Stat.Hp << " / " << Stat.MaxHp
+		<< " | MP : " << Stat.Mp << " / " << Stat.MaxMp 
+		<< endl;
+	cout << "----------------------------------" << endl;
+}

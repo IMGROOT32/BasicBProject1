@@ -63,6 +63,7 @@ public:
 	int GetHp() { return Stat.Hp; }
 	void Heal(int amount);
 	void PlayTurn(ACharacter* Target);
+	void ShowStat();
 
 protected:
 	string Name;
