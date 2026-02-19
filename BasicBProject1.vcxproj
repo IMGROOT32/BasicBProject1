@@ -124,11 +124,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BasicBProject1.cpp" />
+    <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="Character\Character.cpp" />
     <ClCompile Include="Character\Player.cpp" />
     <ClCompile Include="Character\Monster.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BattleManager.h" />
     <ClInclude Include="Character\Character.h" />
     <ClInclude Include="Character\Player.h" />
     <ClInclude Include="Character\Monster.h" />
