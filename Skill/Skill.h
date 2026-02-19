@@ -1,0 +1,15 @@
+﻿#pragma once
+
+class ACharacter;
+
+class USkill
+{
+public:
+	USkill(ACharacter* Owner);
+
+	virtual void Play(ACharacter* Target) = 0;
+
+protected:
+	ACharacter* Owner;
+};
+

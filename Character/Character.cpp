@@ -90,28 +90,39 @@ void ACharacter::Heal(int amount)
 
 void ACharacter::PlayTurn(ACharacter* Target)
 {
-	const int AttackRate = rand() % 100;
-	const int SkillMp = 10;
-	if (AttackRate < 70)
+	if (GetRandomInt() < 50)
 	{
 		Attack(Target);
-		return;
 	}
-	if (Stat.Mp < SkillMp)
+	else
 	{
-		Attack(Target);
-		cout << "마나가 부족합니다" << endl;
-		return;
+		UseSkill(Target);
 	}
-	UseSkill(Target);
-	Stat.Mp -= SkillMp;
 }
+
+//const int AttackRate = rand() % 100;
+//const int SkillMp = 10;
+//
+//if (AttackRate < 70)
+//{
+//	Attack(Target);
+//	return;
+//}
+//if (Stat.Mp < SkillMp)
+//{
+//	Attack(Target);
+//	cout << "마나가 부족합니다" << endl;
+//	return;
+//}
+//UseSkill(Target);
+//Stat.Mp -= SkillMp;
+//}
 
 void ACharacter::ShowStat()
 {
-	cout << Name 
+	cout << Name
 		<< " HP : " << Stat.Hp << " / " << Stat.MaxHp
-		<< " | MP : " << Stat.Mp << " / " << Stat.MaxMp 
+		<< " | MP : " << Stat.Mp << " / " << Stat.MaxMp
 		<< endl;
 	cout << "----------------------------------" << endl;
 }
