@@ -3,5 +3,5 @@
 USkill::USkill(ACharacter* Owner)
 	: Owner(Owner)
 {
-
 }
+

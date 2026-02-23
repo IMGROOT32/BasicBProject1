@@ -53,18 +53,22 @@ public:
 	virtual ~ACharacter();
 	
 	void PrintName();
+
 	int GetMaxHp() const { return Stat.MaxHp; }
+	string GetName() { return Name; }
+	int GetHp() { return Stat.Hp; }
+	int GetAtk() { return Stat.Atk; }
+	int GetCritical() { return Stat.Critical; }
 
 	virtual FDamageResult Attack(ACharacter* Target);
 	virtual void UseSkill(ACharacter* Target) = 0;
 	int TakeDamage(int DamageAmount);
 	bool IsDead() { return Stat.Hp <= 0; }
-	string GetName() { return Name; }
-	int GetHp() { return Stat.Hp; }
 	void Heal(int amount);
 	void PlayTurn(ACharacter* Target);
 	void ShowStat();
 
+	int GetRandomInt();
 protected:
 	string Name;
 	FUnitStat Stat;

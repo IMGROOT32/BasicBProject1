@@ -1,5 +1,9 @@
 ﻿#pragma once
 
+#include <iostream>
+
+using namespace std;
+
 class ACharacter;
 
 class USkill
@@ -10,6 +14,6 @@ public:
 	virtual void Play(ACharacter* Target) = 0;
 
 protected:
-	ACharacter* Owner;
+	ACharacter* Owner = nullptr;
 };
 
