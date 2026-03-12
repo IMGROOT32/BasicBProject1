@@ -1,8 +1,21 @@
-﻿
-#include "Character.h"
-#include <cstdlib>
+﻿#include "Character.h"
+#include "../Skill/Skill.h"
+
+#include <iostream>
 #include <random>
 
+using namespace std;
+
+void FDamageResult::PrintMessage(const string& AttackMessage)
+{
+	cout << "-------------------------------------------------" << endl;
+	Attacker->PrintName();
+	cout << AttackMessage << '\n';
+
+	Target->PrintName();
+	cout << "'받은 데미지': " << Damage << "-> '남은 HP': " << Target->GetHp() << "/" << Target->GetMaxHp() << endl;
+	cout << "-------------------------------------------------" << endl;
+}
 
 ACharacter::ACharacter(const string& NewName, const FUnitStat& UnitStat)
 {
@@ -17,62 +30,16 @@ ACharacter::ACharacter(const string& NewName, const FUnitStat& UnitStat)
 
 ACharacter::~ACharacter()
 {
-	cout << "ACharacter 이 소멸되었습니다." << endl;
+	cout << "ACharacter 소멸됨" << endl;
 }
-int GetRandomInt()
-{
-	static std::random_device rd;
-	static std::mt19937 gen(rd());
-	std::uniform_int_distribution<int> dis(0, 100);
-	return dis(gen);
-}
-
-FDamageResult ACharacter::Attack(ACharacter* Target)
-{
-	int Damage = Stat.Atk;
-	bool bCritical = GetRandomInt() < Stat.Critical;
-	if (bCritical)
-	{
-		Damage = static_cast<int>(Damage * 1.5f);
-	}
-
-	int FinalDamage = Target->TakeDamage(Damage);
-	FDamageResult result;
-	result.Attacker = this;
-	result.Target = Target;
-	result.Damage = FinalDamage;
-	result.bCritical = bCritical;
-	return result;
-}
-
-void FDamageResult::PrintMessage(const string& AttackMessage)
-{
-	cout << "-------------------------------------------------" << endl;
-	Attacker->PrintName();
-	cout << AttackMessage << '\n';
-
-	Target->PrintName();
-	cout << "'받은 데미지': " << Damage << " -> '남은 HP': " << Target->GetHp() << "/" << Target->GetMaxHp() << endl;
-	cout << "-------------------------------------------------" << endl;
-}
-
-void ACharacter::PrintName()
-{
-	cout << "[" << Name << "] ";
-}
-
 
 int ACharacter::TakeDamage(int DamageAmount)
 {
-	DamageAmount -= Stat.Def;
-
-	// DamageAmount 보다 방어력이 높을때, 피가 회복이 되는걸 막기 위함.
-	// DamageAmount는 최소 0이상이어야 함. 
+	DamageAmount = DamageAmount - Stat.Def;
 	DamageAmount = std::max(DamageAmount, 0);
 
-	Stat.Hp -= DamageAmount;
+	Stat.Hp = Stat.Hp - DamageAmount;
 	Stat.Hp = std::max(Stat.Hp, 0);
-
 	return DamageAmount;
 }
 
@@ -88,41 +55,39 @@ void ACharacter::Heal(int amount)
 	cout << ActualHeal << " HP를 회복했습니다...!" << endl;
 }
 
-void ACharacter::PlayTurn(ACharacter* Target)
+int ACharacter::GetRandomInt(int Max)
 {
-	if (GetRandomInt() < 50)
-	{
-		Attack(Target);
-	}
-	else
-	{
-		UseSkill(Target);
-	}
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+	std::uniform_int_distribution<int> dis(0, Max - 1);
+	return dis(gen);
 }
 
-//const int AttackRate = rand() % 100;
-//const int SkillMp = 10;
-//
-//if (AttackRate < 70)
-//{
-//	Attack(Target);
-//	return;
-//}
-//if (Stat.Mp < SkillMp)
-//{
-//	Attack(Target);
-//	cout << "마나가 부족합니다" << endl;
-//	return;
-//}
-//UseSkill(Target);
-//Stat.Mp -= SkillMp;
-//}
+void ACharacter::PrintName()
+{
+	cout << "[" << Name << "] ";
+}
 
 void ACharacter::ShowStat()
 {
-	cout << Name
-		<< " HP : " << Stat.Hp << " / " << Stat.MaxHp
-		<< " | MP : " << Stat.Mp << " / " << Stat.MaxMp
-		<< endl;
-	cout << "----------------------------------" << endl;
+	cout << "[System] ";
+	PrintName();
+
+	cout << " HP: " << Stat.Hp << " / " << Stat.MaxMp << " MP: " << Stat.Mp << " / " << Stat.MaxMp << endl;
+}
+
+bool ACharacter::HasEnoughMp(int Cost)
+{
+	return Stat.Mp >= Cost;
+}
+
+void ACharacter::ConsumeMp(int Cost)
+{
+	if (Cost < 0)
+	{
+		return;
+	}
+	Stat.Mp = Stat.Mp - Cost;
+	Stat.Mp = std::max(Stat.Mp, 0);
+
 }

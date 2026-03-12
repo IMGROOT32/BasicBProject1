@@ -3,12 +3,11 @@
 #include <string>
 
 UPlayerDoubleAttackSkill::UPlayerDoubleAttackSkill(ACharacter* NewOwner)
-	: USkill(NewOwner)
+	: USkill(NewOwner, "더블 슬래시", 20)
 {
-
 }
 
-void UPlayerDoubleAttackSkill::Play(ACharacter* Target)
+void UPlayerDoubleAttackSkill::OnPlay(ACharacter* Target)
 {
 	FDamageResult result;
 	result.Attacker = Owner;

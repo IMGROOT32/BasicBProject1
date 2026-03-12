@@ -1,13 +1,11 @@
 ﻿#pragma once
-#include "Skill.h"
 
-using namespace std;
+#include "Skill.h"
 
 class UMonsterAttackSkill : public USkill
 {
 public:
-	UMonsterAttackSkill(ACharacter* NewOwner);
+    UMonsterAttackSkill(ACharacter* NewOwner);
 
-	void Play(ACharacter* Target) override;
+    void OnPlay(ACharacter* Target) override;
 };
-

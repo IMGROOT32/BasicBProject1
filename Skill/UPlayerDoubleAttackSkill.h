@@ -7,6 +7,6 @@ class UPlayerDoubleAttackSkill : public USkill
 public:
 	UPlayerDoubleAttackSkill(ACharacter* NewOwner);
 
-	void Play(ACharacter* Target) override;
+	void OnPlay(ACharacter* Target) override;
 };
 

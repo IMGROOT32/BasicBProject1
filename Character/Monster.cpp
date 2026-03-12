@@ -1,39 +1,33 @@
 ﻿#include "Monster.h"
 
+#include <iostream>
+
+#include "../Skill/UMonsterAttackSkill.h"
+#include "../Skill/UMonsterDrainSkill.h"
+
+
 AMonster::AMonster(const string& NewName, const FUnitStat& NewStat)
 	: ACharacter(NewName, NewStat)
 {
-
-
-};
-
-FDamageResult AMonster::Attack(ACharacter* Target)
-{
-	FDamageResult result = ACharacter::Attack(Target);
-	string AttackMessage = " 이(가) 몸통박치기를 합니다";
-	if (result.bCritical)
-	{
-		AttackMessage = "이(가) 머리의 뿔로 급소를 찔렀습니다.";
-	}
-
-	result.PrintMessage(AttackMessage);
-	
-	return result;
+	Skills.push_back(make_unique<UMonsterAttackSkill>(this));
+	Skills.push_back(make_unique<UMonsterDrainSkill>(this));
 }
 
-
-void AMonster::UseSkill(ACharacter* Target)
+void AMonster::PlayTurn(ACharacter* Target)
 {
-	FDamageResult result;
-	result.Attacker = this;
-	result.Target = Target;
-	result.bCritical = false;
-	
-	int FinalDamage = Target->TakeDamage(Stat.Atk);
-	Heal(FinalDamage);
-
-	result.Damage = FinalDamage;
-	result.PrintMessage("의 피를 마십니다.");
-	result.PrintMessage("체력을 회복합니다.");
-
+	vector<USkill*> UsableSkills;
+	for (auto& skill : Skills)
+	{
+		if (skill->CanUse())
+		{
+			UsableSkills.push_back(skill.get());
+		}
+	}
+	if (UsableSkills.empty())
+	{
+		cout << Name << "은(는) 아무 행동도 할 수 없습니다." << endl;
+		return;
+	}
+	int index = GetRandomInt(static_cast<int>(UsableSkills.size()));
+	UsableSkills[index]->Play(Target);
 }

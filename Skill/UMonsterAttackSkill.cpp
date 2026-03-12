@@ -3,12 +3,12 @@
 #include <string>
 
 UMonsterAttackSkill::UMonsterAttackSkill(ACharacter* NewOwner)
-	: USkill(NewOwner)
+	: USkill(NewOwner, "이빨 공격", 0)
 {
 
 }
 
-void UMonsterAttackSkill::Play(ACharacter* Target)
+void UMonsterAttackSkill::OnPlay(ACharacter* Target)
 {
 	int Damage = Owner->GetAtk();
 	bool bCritical = Owner->GetRandomInt() < Owner->GetCritical();

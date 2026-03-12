@@ -1,25 +1,26 @@
 ﻿#pragma once
 
-#include <iostream>
 #include <string>
+#include <vector>
+#include <memory>
 
+class ACharacter;
+class USkill;
 using namespace std;
 
 struct FUnitStat
 {
 	int MaxHp;
 	int MaxMp;
-
-	int Hp = 0;
-	int Mp = 0;
-
 	int Atk;
 	int Def;
 	int Critical;
 
+	int Hp = 0;
+	int Mp = 0;
+
 	FUnitStat()
 	{
-
 	}
 
 	FUnitStat(int MaxHp, int MaxMp, int Atk, int Def, int Critical)
@@ -33,13 +34,13 @@ struct FUnitStat
 	}
 };
 
-class ACharacter;
-
+//데이터 덩어리 - 묶음
+// 최종 데미지, 크리티컬 여부 묶어서 전달할거야~ 
 struct FDamageResult
 {
 	int Damage;
 	bool bCritical;
-	
+
 	ACharacter* Attacker;
 	ACharacter* Target;
 
@@ -49,29 +50,28 @@ struct FDamageResult
 class ACharacter
 {
 public:
-	ACharacter(const string& NewName, const FUnitStat& NewStat);
+	ACharacter(const string& NewName, const FUnitStat& UnitStat);
 	virtual ~ACharacter();
-	
-	void PrintName();
 
-	int GetMaxHp() const { return Stat.MaxHp; }
-	string GetName() { return Name; }
-	int GetHp() { return Stat.Hp; }
-	int GetAtk() { return Stat.Atk; }
-	int GetCritical() { return Stat.Critical; }
-
-	virtual FDamageResult Attack(ACharacter* Target);
-	virtual void UseSkill(ACharacter* Target) = 0;
-	int TakeDamage(int DamageAmount);
-	bool IsDead() { return Stat.Hp <= 0; }
-	void Heal(int amount);
-	void PlayTurn(ACharacter* Target);
-	void ShowStat();
-
-	int GetRandomInt();
 protected:
 	string Name;
 	FUnitStat Stat;
-	
+	vector<unique_ptr<USkill>> Skills;
 
+public:
+	const string& GetName() { return Name; }
+	int GetHp() const { return Stat.Hp; }
+	int GetMaxHp() const { return Stat.MaxHp; }
+	int GetAtk() const { return Stat.Atk; }
+	int GetCritical() const { return Stat.Critical; }
+	bool IsDead() const { return Stat.Hp <= 0; }
+	bool HasEnoughMp (int Cost);
+	void ConsumeMp(int Cost);
+
+	int TakeDamage(int DamageAmount);
+	void Heal(int amount);
+	void PrintName();
+	void ShowStat();
+	virtual void PlayTurn(ACharacter* Target) = 0;
+	int GetRandomInt(int Max = 100);
 };

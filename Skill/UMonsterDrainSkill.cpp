@@ -1,25 +1,21 @@
 ﻿#include "UMonsterDrainSkill.h"
+
 #include "../Character/Character.h"
-#include <string>
 
 UMonsterDrainSkill::UMonsterDrainSkill(ACharacter* NewOwner)
-	: USkill(NewOwner)
+    : USkill(NewOwner, "흡혈", 15)
 {
-
 }
 
-void UMonsterDrainSkill::Play(ACharacter* Target)
+void UMonsterDrainSkill::OnPlay(ACharacter* Target)
 {
-	FDamageResult result;
-	result.Attacker = Owner;
-	result.Target = Target;
-	result.bCritical = false;
+    FDamageResult result;
+    result.Attacker = Owner;
+    result.Target = Target;
+    result.bCritical = false;
 
-	int FinalDamage = Target->TakeDamage(Owner->GetAtk());
-	Owner->Heal(FinalDamage);
+    int FinalDamage = Target->TakeDamage(Owner->GetAtk());
+    result.Damage = FinalDamage;
 
-	result.Damage = FinalDamage;
-	result.PrintMessage("의 피를 마십니다.");
-	result.PrintMessage("체력을 회복합니다.");
-
+    result.PrintMessage("-필살기- 피를 빨아 회복합니다...!");
 }
